@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Legacy code</title>
+		<title>IT Depends #8</title>
 
 		<meta name="author" content="Dawid Mazur">
 
@@ -49,22 +49,26 @@
 					<ol>
 						<li class="fragment">The problem that we'll try to solve using CDC</li>
 						<li class="fragment">Introduction to the tech involved</li>
-						<li class="fragment">Working with Debezium</li>
+						<li class="fragment">Workshop itself</li>
 						<li class="fragment">Takeaways</li>
-						<li class="fragment">Summary</li>
 					</ol>
 				</section>
 
 				<section>
-					<h2>The problem: updating campaigns on the go</h2>
+					<h2>1. The Problem</h2>
+					<h3>updating campaigns on the go</h3>
 				</section>
 
 				<section>
-					<h2>Bad solution: db polling</h2>
+					<h2>Bad solution: DB polling</h2>
 				</section>
 
 				<section>
-					<h2>Better solution: CDC with Debezium~!</h2>
+					<h2>Better (?) solution: CDC with Debezium~!</h2>
+				</section>
+
+				<section>
+					<h2>2. The tech</h2>
 				</section>
 
 				<section>
@@ -91,53 +95,8 @@
 				</section>
 
 				<section>
-					<img style="max-height: 500px;" src="img/kafka1.png" alt="">
-				</section>
-
-				<section>
-					<img style="max-height: 500px;" src="img/kafka2.png" alt="">
-				</section>
-
-				<section>
-					<img style="max-height: 500px;" src="img/kafka3.png" alt="">
-				</section>
-
-				<section>
-					<img style="max-height: 500px;" src="img/kafka4.png" alt="">
-				</section>
-
-				<section>
-					<h2>Kafka Guarantees</h2>
-					<ul>
-						<li class="fragment">Maintains order of produced messages in a partition</li>
-						<li class="fragment">Consumer gets message always in said order</li>
-						<li class="fragment">Topic with a replication factor of N will tolerate up to N-1 server failures</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Also...</h2>
-					<ul>
-						<li class="fragment">Consumers and consumer groups will pick up when they left (offset can be reset ofc)</li>
-						<li class="fragment">Server failure in a cluster is transparent to consumers and producers</li>
-						<li class="fragment">Kafka is really fast</li>
-					</ul>
-				</section>
-
-				<section>
 					<h2>Kafka Connect</h2>
 					<p>Tool for scalably and reliably streaming data between Apache Kafka and other systems. It makes it simple to quickly define connectors that move large collections of data into and out of Kafka. </p>
-				</section>
-
-				<section>
-					<h2>Why Kafka Connect?</h2>
-					<ul>
-						<li class="fragment">Scalability and distribution OOTB</li>
-						<li class="fragment">Many connectors available</li>
-						<li class="fragment">A common framework!</li>
-						<li class="fragment">Take a lot of heavy lifting from developer</li>
-						<li class="fragment">Handy REST interface</li>
-					</ul>
 				</section>
 
 				<section>
@@ -150,7 +109,88 @@
 				</section>
 
 				<section>
-					<h2>2. Working with Debezium</h2>
+					<h2>3. The workshop</h2>
+				</section>
+
+				<section>
+					<img style="max-height: 500px;" src="img/tickets1.png" alt="">
+				</section>
+
+				<section>
+					<img style="max-height: 500px;" src="img/tickets2.png" alt="">
+				</section>
+
+				<section>
+					<img style="max-height: 500px;" src="img/tickets3.jpg" alt="">
+				</section>
+
+				<section>
+					<h4>...but you can try on your own! :D</h4>
+					<h3>github.com/ClearcodeHQ/it-depends-8</h3>
+				</section>
+
+				<section>
+					<h2>What needs to be done?</h2>
+					<ol>
+						<li class="fragment">Try out the polling mechanism</li>
+						<li class="fragment">What are the issues?</li>
+						<li class="fragment">Configure a Debezium Connector</li>
+						<li class="fragment">Read the messages from Kafka topic</li>
+						<li class="fragment">Modify the app so it uses Kafka</li>
+						<li class="fragment">Try and figure out pros and cons of CDC</li>
+						<li class="fragment">Play around! Go crazy!</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Try out the polling mechanism</h2>
+					<ol>
+						<li class="fragment">Start the application</li>
+						<li class="fragment">Check out the code and DB schema</li>
+					</ol>
+				</section>
+
+				<section><h3>DEMO: Check out the code and DB schema</h3></section>
+
+				<section>
+					<h2>Try out the polling mechanism</h2>
+					<ol>
+						<li>Start the application</li>
+						<li>Check out the code and DB schema</li>
+						<li class="fragment">Use psql to change rows in the DB</li>
+					</ol>
+				</section>
+
+				<section><h3>TASK: Use psql to change rows in the DB</h3></section>
+
+				<section>
+					<h2>Try out the polling mechanism</h2>
+					<ol>
+						<li>Start the application</li>
+						<li>Check out the code and DB schema</li>
+						<li>Use psql to change rows in the DB</li>
+						<li class="fragment">Can you see any potential problems?</li>
+					</ol>
+				</section>
+
+				<section><h3>TASK: Can you see any potential problems?</h3></section>
+
+				<section>
+					<h2>Configure a Debezium Connector</h2>
+					<ol>
+						<li class="fragment">Check out the Connector API</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Why Kafka Connect?</h2>
+					<ul>
+						<li class="fragment">Scalability and distribution OOTB</li>
+						<li class="fragment">Many connectors available</li>
+						<li class="fragment">A common framework!</li>
+						<li class="fragment">Take a lot of heavy lifting from developer</li>
+						<li class="fragment">Handy REST interface</li>
+					</ul>
 				</section>
 
 				<section>
@@ -177,71 +217,12 @@
 					</ul>
 				</section>
 
-				<section>
-					<h2>TODO Update for PG</h2>
-					<h2>How Debezium works (simplified)</h2>
-					<ol>
-						<li class="fragment">Grab a global read lock</li>
-						<li class="fragment">Get binlog position</li>
-						<li class="fragment">Get schema</li>
-						<li class="fragment">Release lock</li>
-						<li class="fragment">Scan all tables, write CREATE events (in transaction)</li>
-						<li class="fragment">Start watching the binlog for changes</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>DB Configuration</h2>
-					<pre><code class="language-php">
-server-id         = 223344
-log_bin           = mysql-bin
-binlog_format     = row
-binlog_row_image  = full
-expire_logs_days  = 10
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>DB Configuration</h2>
-					<pre><code class="language-sql">
-GRANT SELECT, RELOAD, SHOW DATABASES, 
-REPLICATION SLAVE, REPLICATION CLIENT 
-ON *.* TO 'debezium' IDENTIFIED BY 'dbz';
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>I've done all the configuring for you</h2>
-					<a href="https://github.com/dmazur/it-depends-8-workshops">Click!</a>
-				</section>
-
-				<section>
-					<h2>What needs to be done?</h2>
-					<ol>
-						<li class="fragment">Try out the polling mechanism</li>
-						<li class="fragment">What are the issues?</li>
-						<li class="fragment">Configure a Debezium Connector</li>
-						<li class="fragment">Read the messages from Kafka topic</li>
-						<li class="fragment">Modify the app so it uses Kafka</li>
-						<li class="fragment">Try and figure out pros and cons of CDC</li>
-						<li class="fragment">Play around! Go crazy!</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>Try out the polling mechanism</h2>
-					<ol>
-						<li class="fragment">Start the application</li>
-						<li class="fragment">Check out the code and DB schema</li>
-						<li class="fragment">Use psql to change rows in the DB</li>
-						<li class="fragment">Can you see any potential problems?</li>
-					</ol>
-				</section>
+				<section><h3>DEMO: Check out the Connector API</h3></section>
 
 				<section>
 					<h2>Configure a Debezium Connector</h2>
 					<ol>
-						<li class="fragment">Check out the Connector API</li>
+						<li>Check out the Connector API</li>
 						<li class="fragment">Use available configuration to create your connector</li>
 					</ol>
 				</section>
@@ -264,6 +245,8 @@ ON *.* TO 'debezium' IDENTIFIED BY 'dbz';
 					</code></pre>
 				</section>
 
+				<section><h3>TASK: Use available configuration to create your connector</h3></section>
+
 				<section>
 					<h2>Configure a Debezium Connector</h2>
 					<ol>
@@ -282,12 +265,41 @@ ON *.* TO 'debezium' IDENTIFIED BY 'dbz';
 				</section>
 
 				<section>
+					<h2>Kafka Guarantees</h2>
+					<ul>
+						<li class="fragment">Maintains order of produced messages in a partition</li>
+						<li class="fragment">Consumer gets message always in said order</li>
+						<li class="fragment">Topic with a replication factor of N will tolerate up to N-1 server failures</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Also...</h2>
+					<ul>
+						<li class="fragment">Consumers and consumer groups will pick up when they left (offset can be reset ofc)</li>
+						<li class="fragment">Server failure in a cluster is transparent to consumers and producers</li>
+						<li class="fragment">Kafka is really fast</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Read the messages from Kafka topic</h2>
+					<ol>
+						<li class="fragment">Get to know the Kafka scripts</li>
+					</ol>
+				</section>
+
+				<section><h3>DEMO: Get to know the Kafka scripts</h3></section>
+
+				<section>
 					<h2>Read the messages from Kafka topic</h2>
 					<ol>
 						<li class="fragment">Get to know the Kafka scripts</li>
 						<li class="fragment">List available topics</li>
 					</ol>
 				</section>
+
+				<section><h3>TASK: List available topics</h3></section>
 
 				<section>
 					<h2>Topic names</h2>
@@ -303,6 +315,8 @@ ON *.* TO 'debezium' IDENTIFIED BY 'dbz';
 					</ol>
 				</section>
 
+				<section><h3>TASK: Listen to the messages, while making changes in the DB</h3></section>
+
 				<section>
 					<h2>How do events look like</h2>
 					<a href="https://debezium.io/documentation/reference/1.6/connectors/postgresql.html#postgresql-events">Click!</a>
@@ -312,14 +326,46 @@ ON *.* TO 'debezium' IDENTIFIED BY 'dbz';
 					<h2>Modify the app so it uses Kafka</h2>
 					<ol>
 						<li class="fragment">Install a Kafka client using npm</li>
+					</ol>
+				</section>
+
+				<section><h3>DEMO: Install a Kafka client using npm</h3></section>
+
+				<section>
+					<h2>Modify the app so it uses Kafka</h2>
+					<ol>
+						<li>Install a Kafka client using npm</li>
 						<li class="fragment">Configure the Kafka client</li>
+					</ol>
+				</section>
+
+				<section><h3>TASK: Configure the Kafka client</h3></section>
+
+				<section>
+					<h2>Modify the app so it uses Kafka</h2>
+					<ol>
+						<li>Install a Kafka client using npm</li>
+						<li>Configure the Kafka client</li>
 						<li class="fragment">Switch the polling mechanism to Kafka listener</li>
+					</ol>
+				</section>
+
+				<section><h3>TASK: Switch the polling mechanism to Kafka listener</h3></section>
+
+				<section>
+					<h2>Modify the app so it uses Kafka</h2>
+					<ol>
+						<li>Install a Kafka client using npm</li>
+						<li>Configure the Kafka client</li>
+						<li>Switch the polling mechanism to Kafka listener</li>
 						<li class="fragment">Test it, making changes in the DB</li>
 					</ol>
 				</section>
 
+				<section><h3>TASK: Test it, making changes in the DB</h3></section>
+
 				<section>
-					<h2>Try and figure out pros and cons of CDC</h2>
+					<h3>TASK: Try and figure out pros and cons of CDC</h3>
 					<ol>
 						<li class="fragment">Is the new solution better or worse?</li>
 						<li class="fragment">What did we gain?</li>
