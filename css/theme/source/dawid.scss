@@ -1,0 +1,165 @@
+/**
+ * My own presentation theme (finally!)
+ * Author: Dawid Mazur
+ * Based on moon.scss
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(../../lib/font/league-gothic/league-gothic.css);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Oswald|Roboto+Condensed);
+
+/**
+ * Solarized colors by Ethan Schoonover
+ */
+html * {
+	color-profile: sRGB;
+	rendering-intent: auto;
+}
+
+// Solarized colors
+$base03:    #E9F2F9;
+$base1:     #1B325F;
+$base2:     #1B325F;
+
+$melon:     #F26C4F;
+$yay:       #3A89C9;
+
+
+$base02:    #073642;
+$base01:    #586e75;
+$base00:    #657b83;
+$base0:     #839496;
+$base3:     #fdf6e3;
+
+$yellow:    #b58900;
+$orange:    #cb4b16;
+$red:       #dc322f;
+$magenta:   #d33682;
+$violet:    #6c71c4;
+$blue:      #268bd2;
+$cyan:      #2aa198;
+$green:     #859900;
+
+// Override theme settings (see ../template/settings.scss)
+$mainColor: $base2;
+$headingColor: $base2;
+$headingTextShadow: none;
+$backgroundColor: $base03;
+$linkColor: $yay;
+$linkColorHover: lighten( $linkColor, 20% );
+$selectionBackgroundColor: $green;
+
+// My custom changes
+$quoteRobotoFont: 'Oswald', Impact, sans-serif;
+.blink_me {
+	animation: blinker 1s linear infinite;
+  }
+  
+@keyframes blinker {
+	50% {
+		opacity: 0;
+	}
+}
+
+.reveal div.custom-quote {
+	width: 50%;
+
+	&.quote-right {
+		margin-right: -200px;
+		text-align: right;
+		float: right;
+	}
+
+	&.quote-left {
+		margin-left: -200px;
+		text-align: left;
+		float: left;
+	}
+
+	.quote-small {
+		// background-color: rgba($base1, 0.9);
+		margin: 10px;
+		margin-top: 0;
+		color: $base03;
+		text-shadow: 1px 1px 2px black;
+		font-family: $quoteRobotoFont;
+	}
+
+	.quote-emp {
+		text-align: left;
+		margin: 10px;
+		margin-top: 0;
+		background-color: rgba($base03, 0.9);
+		color: $melon;
+		line-height: 1em;
+		font-family: $headingFont;
+		font-size: $heading1Size;
+		text-transform: uppercase;
+	}
+}
+
+.reveal div.video-label {
+	width: 50%;
+
+	&.video-label-right {
+		text-align: right;
+		float: right;
+	}
+
+	&.video-label-left {
+		text-align: left;
+		float: left;
+	}
+
+	text-align: left;
+	margin: 10px;
+	margin-top: 0;
+	background-color: rgba($base03, 0.9);
+	color: $base2;
+	line-height: 1em;
+	font-family: $headingFont;
+	font-size: $heading3Size;
+	text-transform: uppercase;
+}
+
+.emp {
+	color: $melon;
+}
+
+.number-hash {
+	color: $yay;
+}
+
+.reveal section blockquote {
+	box-shadow: none;
+}
+
+.reveal .twitter-link {
+	font-size: 0.6em;
+	//background-color: $base0;
+	width: 6em;
+	padding: 10px;
+	border-bottom-right-radius: 20px;
+	position: absolute;
+	bottom: 45px;
+	left: 20px;
+	i {
+		color: $yay
+	}
+
+	a {
+		color: $yay
+	}
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------

@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Legacy code</title>
+
+		<meta name="author" content="Dawid Mazur">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/font-awesome.css">
+		<link rel="stylesheet" href="css/theme/dawid.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/github.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+		<div class="twitter-link"><i style="vertical-align: middle" class="fa fa-twitter" aria-hidden="true"></i> <a target="_blank" href="http://twitter.com/dwdmzr"> dwdmzr</a></div>
+
+			<div class="slides">
+				<section>
+					<h1>Set up CDC with Debezium!</h1>
+				</section>
+
+				<section>
+					<h2>Workshop plan</h2>
+					<ol>
+						<li class="fragment">The problem that we'll try to solve using CDC</li>
+						<li class="fragment">Introduction to the tech involved</li>
+						<li class="fragment">Working with Debezium</li>
+						<li class="fragment">Takeaways</li>
+						<li class="fragment">Summary</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>The problem: updating campaigns on the go</h2>
+				</section>
+
+				<section>
+					<h2>Bad solution: db polling</h2>
+				</section>
+
+				<section>
+					<h2>Better solution: CDC with Debezium~!</h2>
+				</section>
+
+				<section>
+					<h2>What is Debezium?</h2>
+					<h4>Debezium is a <span class="emp">Kafka Connect connector</span> <br>
+					which enables <span class="emp">CDC</span> on popular <span class="emp">databases</span></h4>
+				</section>
+
+				<section>
+					<img style="max-height: 500px;" src="img/wat.jpg" alt="">
+				</section>
+
+				<section>
+					<h2>What is all this stuff?</h2>
+				</section>
+
+				<section>
+					<h2>You already know what CDC is</h2>
+				</section>
+
+				<section>
+					<h2>What is Kafka?</h2>
+					<p>Fast, scalable, durable, and distributed messaging system that records all messages in replicated, partitioned, and totally-ordered transaction logs</p>
+				</section>
+
+				<section>
+					<img style="max-height: 500px;" src="img/kafka1.png" alt="">
+				</section>
+
+				<section>
+					<img style="max-height: 500px;" src="img/kafka2.png" alt="">
+				</section>
+
+				<section>
+					<img style="max-height: 500px;" src="img/kafka3.png" alt="">
+				</section>
+
+				<section>
+					<img style="max-height: 500px;" src="img/kafka4.png" alt="">
+				</section>
+
+				<section>
+					<h2>Kafka Guarantees</h2>
+					<ul>
+						<li class="fragment">Maintains order of produced messages in a partition</li>
+						<li class="fragment">Consumer gets message always in said order</li>
+						<li class="fragment">Topic with a replication factor of N will tolerate up to N-1 server failures</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Also...</h2>
+					<ul>
+						<li class="fragment">Consumers and consumer groups will pick up when they left (offset can be reset ofc)</li>
+						<li class="fragment">Server failure in a cluster is transparent to consumers and producers</li>
+						<li class="fragment">Kafka is really fast</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Kafka Connect</h2>
+					<p>Tool for scalably and reliably streaming data between Apache Kafka and other systems. It makes it simple to quickly define connectors that move large collections of data into and out of Kafka. </p>
+				</section>
+
+				<section>
+					<h2>Why Kafka Connect?</h2>
+					<ul>
+						<li class="fragment">Scalability and distribution OOTB</li>
+						<li class="fragment">Many connectors available</li>
+						<li class="fragment">A common framework!</li>
+						<li class="fragment">Take a lot of heavy lifting from developer</li>
+						<li class="fragment">Handy REST interface</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Connector types</h2>
+					<img style="max-height: 500px;" src="img/connect1.png" alt="">
+				</section>
+
+				<section>
+					<h2>Debezium is a collection <br> of a <span class="emp">source connectors</span></h2>
+				</section>
+
+				<section>
+					<h2>2. Working with Debezium</h2>
+				</section>
+
+				<section>
+					<h2>Available connectors</h2>
+					<ul>
+						<li class="fragment">MySQL</li>
+						<li class="fragment">MongoDB</li>
+						<li class="fragment">PostgreSQL</li>
+						<li class="fragment">Oracle</li>
+						<li class="fragment">SQL Server</li>
+						<li class="fragment">Cassandra</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Available connectors</h2>
+					<ul>
+						<li class="">MySQL</li>
+						<li class="">MongoDB</li>
+						<li class="emp">PostgreSQL</li>
+						<li class="">Oracle</li>
+						<li class="">SQL Server</li>
+						<li class="">Cassandra</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>TODO Update for PG</h2>
+					<h2>How Debezium works (simplified)</h2>
+					<ol>
+						<li class="fragment">Grab a global read lock</li>
+						<li class="fragment">Get binlog position</li>
+						<li class="fragment">Get schema</li>
+						<li class="fragment">Release lock</li>
+						<li class="fragment">Scan all tables, write CREATE events (in transaction)</li>
+						<li class="fragment">Start watching the binlog for changes</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>DB Configuration</h2>
+					<pre><code class="language-php">
+server-id         = 223344
+log_bin           = mysql-bin
+binlog_format     = row
+binlog_row_image  = full
+expire_logs_days  = 10
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>DB Configuration</h2>
+					<pre><code class="language-sql">
+GRANT SELECT, RELOAD, SHOW DATABASES, 
+REPLICATION SLAVE, REPLICATION CLIENT 
+ON *.* TO 'debezium' IDENTIFIED BY 'dbz';
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>I've done all the configuring for you</h2>
+					<a href="https://github.com/dmazur/it-depends-8-workshops">Click!</a>
+				</section>
+
+				<section>
+					<h2>What needs to be done?</h2>
+					<ol>
+						<li class="fragment">Try out the polling mechanism</li>
+						<li class="fragment">What are the issues?</li>
+						<li class="fragment">Configure a Debezium Connector</li>
+						<li class="fragment">Read the messages from Kafka topic</li>
+						<li class="fragment">Modify the app so it uses Kafka</li>
+						<li class="fragment">Try and figure out pros and cons of CDC</li>
+						<li class="fragment">Play around! Go crazy!</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Try out the polling mechanism</h2>
+					<ol>
+						<li class="fragment">Start the application</li>
+						<li class="fragment">Check out the code and DB schema</li>
+						<li class="fragment">Use psql to change rows in the DB</li>
+						<li class="fragment">Can you see any potential problems?</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Configure a Debezium Connector</h2>
+					<ol>
+						<li class="fragment">Check out the Connector API</li>
+						<li class="fragment">Use available configuration to create your connector</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Debezium Configuration</h2>
+					<pre><code class="language-js">
+"name": "campaigns-connector",
+"config": {
+		"connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+		"tasks.max": "1",
+		"database.hostname": "postgres",
+		"database.port": "5432",
+		"database.user": "postgres",
+		"database.password": "postgres",
+		"database.dbname" : "postgres",
+		"database.server.name": "dbserver1",
+		"schema.include": "campaigns"
+}				
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Configure a Debezium Connector</h2>
+					<ol>
+						<li>Check out the Connector API</li>
+						<li>Use available configuration to create your connector</li>
+						<li class="fragment">Is the connector created?</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Kafka configuration</h2>
+					<ul>
+						<li class="fragment">If automatic topic creation is off, you have to create them yourself</li>
+						<li class="fragment">Schema history topic has to have only one partition</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Read the messages from Kafka topic</h2>
+					<ol>
+						<li class="fragment">Get to know the Kafka scripts</li>
+						<li class="fragment">List available topics</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Topic names</h2>
+					<p>Default is DB_SERVER_NAME.DB_NAME.TABLE_NAME but can be changed</p>
+				</section>
+
+				<section>
+					<h2>Read the messages from Kafka topic</h2>
+					<ol>
+						<li>Get to know the Kafka scripts</li>
+						<li>List available topics</li>
+						<li class="fragment">Listen to the messages, while making changes in the DB</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>How do events look like</h2>
+					<a href="https://debezium.io/documentation/reference/1.6/connectors/postgresql.html#postgresql-events">Click!</a>
+				</section>
+
+				<section>
+					<h2>Modify the app so it uses Kafka</h2>
+					<ol>
+						<li class="fragment">Install a Kafka client using npm</li>
+						<li class="fragment">Configure the Kafka client</li>
+						<li class="fragment">Switch the polling mechanism to Kafka listener</li>
+						<li class="fragment">Test it, making changes in the DB</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Try and figure out pros and cons of CDC</h2>
+					<ol>
+						<li class="fragment">Is the new solution better or worse?</li>
+						<li class="fragment">What did we gain?</li>
+						<li class="fragment">What were the challenges?</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Play around, go crazy~!</h2>
+					<ol>
+						<li class="fragment">You can modify the config</li>
+						<li class="fragment">You can use faster format like Avro</li>
+						<li class="fragment">You can transform your messages</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Transformation examples</h2>
+					<ul>
+						<li class="fragment">unwrap (Debezium specific)</li>
+						<li class="fragment">insertKey</li>
+						<li class="fragment">extractKey</li>
+						<li class="fragment">Reroute (Debezium specific)</li>
+						<li class="fragment">Key/value format transformations</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Summary</h2>
+					<ul>
+						<li class="fragment">CDC is a good way to decouple your project</li>
+						<li class="fragment">Debezium delivers a nice open source way of implementing CDC in various databases</li>
+						<li class="fragment">Kafka and Connect offer a very bulletproof solution</li>
+						<li class="fragment">It's good to know and try out Kafka and Connect before implementing Debezium</li>
+						<!-- <li class="fragment">It's better to take Debezium formats into account early</li>
+						<li class="fragment">Sometimes it's hard to solve problems</li>
+						<li class="fragment">...but the community and devs are very responsive (gitter)</li> -->
+					</ul>
+				</section>
+
+				<section>
+					<h2>Thank you, good job!</h2>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: 'moon',
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
