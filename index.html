@@ -39,77 +39,263 @@
 		<div class="reveal">
 		<div class="twitter-link"><i style="vertical-align: middle" class="fa fa-twitter" aria-hidden="true"></i> <a target="_blank" href="http://twitter.com/dwdmzr"> dwdmzr</a></div>
 
-			<div class="slides">
-				<section>
-					<h1>Set up CDC with Debezium!</h1>
-				</section>
+		<div class="slides">
+			<section>
+				<h1>Change Data Capture</h1>
+				<h5>know everything that happens in your db</h5>
+				<p>
+					<small><a href="mailto:kontakt@dawidmazur.eu">Dawid Mazur</a> / <a href="http://twitter.com/dwdmzr">@dwdmzr</a></small>
+					<br />
+					<small>"Experienced" Backend Developer @ <a href="https://clearcode.pl/">Clearcode</a></small>
+				</p>
+			</section>
+
+			<section>
+				<h2>What will I talk about</h2>
+				<ol>
+					<li class="fragment">CDC (duh)</li>
+					<li class="fragment">CDC variants and applications</li>
+					<li class="fragment">A little AdTech</li>
+					<li class="fragment">A small AdTech case study</li>
+					<li class="fragment">Problems CDC solves</li>
+					<li class="fragment">Problems CDC creates (potentially)</li>
+					<li class="fragment">Takeaways</li>
+				</ol>
+			</section>
+
+			<section>
+				<h2>What is CDC?</h2>
+				<p>In databases, change data capture (CDC) is a set of software design patterns used to determine (and track) the data that has changed so that action can be taken using the changed data.</p>
+			</section>
+
+			<section>
+				<h2>Why am I talking about it?</h2>
+				<ul>
+					<li class="fragment">It's not that well known</li>
+				</ul>
+			</section>
+
+			<section>
+				<img style="max-height: 500px;" src="img/trends.png" alt="">
+			</section>
+
+			<section>
+				<h2>Why am I talking about it?</h2>
+				<ul>
+					<li>It's not that well known</li>
+					<li class="fragment">It's simple but very powerful</li>
+				</ul>
+			</section>
+
+			<section>
+				<h5>(well it's not that simple to implement but more on that later)</h5>
+			</section>
+
+			<section>
+				<h2>So.. what exactly is that CDC?</h2>
+				<img style="max-height: 500px;" src="img/cdc-diagram.png" alt="">
+			</section>
+
+			<section>
+				<h3>One database as a source of truth TODO: arrows</h3>
+				<img style="max-height: 500px;" src="img/cdc-diagram.png" alt="">
+			</section>
+
+			<section>
+				<h3>All operations on the DB are messages TODO: arrows</h3>
+				<img style="max-height: 500px;" src="img/cdc-diagram.png" alt="">
+			</section>
+
+			<section>
+				<h3>Several consumer in sync with data TODO: arrows</h3>
+				<img style="max-height: 500px;" src="img/cdc-diagram.png" alt="">
+			</section>
+
+			<section>
+				<h3>Most importantly: We do not need polling / last_changed fields / custom logic</h3>
+			</section>
+
+			<section>
+				<h3>Where can we use CDC?</h3>
+				<ul>
+					<li class="fragment">Caching</li>
+					<li class="fragment">Indexing</li>
+					<li class="fragment">ETL, streaming to other systems</li>
+					<li class="fragment">Data aggregation</li>
+					<li class="fragment">and...</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>We do <span class="emp">AdTech</span></h2>
+			</section>
+
+			<section data-background="img/clearcode.png" data-background-size="40%">
+			</section>
+
+			<section data-background="img/adtech1.png" data-background-size="contain">
+			</section>
+
+			<section data-background="img/adtech2.png" data-background-size="auto">
+			</section>
+
+			<section data-background="img/adtech3.png" data-background-size="auto">
+			</section>
+
+			<section data-background="img/adtech4.png" data-background-size="contain">
+			</section>
+
+			<section data-background="img/adtech5.png" data-background-size="contain">
+			</section>
+
+			<section data-background="img/ret.png" data-background-size="contain">
+			</section>
+
+			<section data-background="img/ret2.png" data-background-size="contain">
+			</section>
+
+			<section data-background="img/ret3.png" data-background-size="contain">
+			</section>
+
+			<section data-background="img/shining1.jpg" data-background-size="contain">
+			</section>
+
+			<section data-background="img/shining2.jpg" data-background-size="contain">
+			</section>
+
+
+			<section>
+				<h2>Adtech problem</h2>
+				<h4>Updating campaigns ASAP</h4>
+			</section>
+
+			<section>
+				<h2>The application</h2>
+				<img style="max-height: 500px;" src="img/app-diagram.png" alt="">
+			</section>
+
+			<section>
+				<h2>How do we check if caimpagns changed?</h2>
+				<img class="fragment" style="max-height: 500px;" src="img/polling.png" alt="">
+			</section>
+
+			<section>
+				<h2>DB polling has it's issues</h2>
+				<ul>
+					<li class="fragment">The interval is hard to nail</li>
+					<li class="fragment">Additional load on the DB</li>
+					<li class="fragment">Changes have to be handled manually</li>
+					<li class="fragment">Custom solutions are error prone</li>
+					<li class="fragment">We have better ways of doing that :d</li>
+				</ul>
+			</section>
+
+			<section data-background="img/drake.jpg" data-background-size="contain">
+			</section>
+
+			<section>
+				<h2>Let's pick a CDC framework</h2>
+			</section>
+			
+			<section>
+				<h2>Oracle GoldenGate</h2>
+				<img style="max-height: 500px;" src="img/price1.png" alt="">
+			</section>
+			
+			<section>
+				<h2>Oracle GoldenGate</h2>
+				<img style="max-height: 500px;" src="img/price1.png" alt="">
+			</section>
+			
+			<section>
+				<h2>Oracle GoldenGate</h2>
+				<img style="max-height: 500px;" src="img/price1.png" alt="">
+			</section>
+			
+			<section>
+				<h2>Oracle GoldenGate</h2>
+				<img style="max-height: 500px;" src="img/price1.png" alt="">
+			</section>
+			
+			<section>
+				<h2>Debezium</h2>
+				<img style="max-height: 500px;" src="img/debezium_price.png" alt="">
+			</section>
+
+			<section>
+				<img style="max-height: 500px;" src="img/jack.gif" alt="">
+			</section>
+
+			<section>
+				<h2>What is Debezium?</h2>
+				<h4>Debezium is a <span class="emp">Kafka Connect connector</span> <br>
+				which enables <span class="emp">CDC</span> on popular <span class="emp">databases</span></h4>
+			</section>
+
+			<section>
+				<img style="max-height: 500px;" src="img/wat.jpg" alt="">
+			</section>
+
+			<section>
+				<h2>What is all this stuff?</h2>
+			</section>
+
+			<section>
+				<h2>You already know what <span class="emp">CDC</span> is</h2>
+			</section>
+
+			<section>
+				<h2>...and I really hope you know <br> what a <span class="emp">database</span> is</h2>
+			</section>
+
+			<section>
+				<h2>What is <span class="emp">Kafka</span></h2>
+				<p>Fast, scalable, durable, and distributed messaging system that records all messages in replicated, partitioned, and totally-ordered transaction logs</p>
+			</section>
+
+			<section>
+				<h2>What is the <span class="emp">Kafka Connect</span></h2>
+				<p>Tool for scalably and reliably streaming data between Apache Kafka and other systems. It makes it simple to quickly define connectors that move large collections of data into and out of Kafka. </p>
+			</section>
+
+			<section>
+				<h2>Connector types</h2>
+				<img style="max-height: 500px;" src="img/connect1.png" alt="">
+			</section>
+
+			<section>
+				<h2>Debezium is a collection <br> of a <span class="emp">source connectors</span></h2>
+			</section>
+
+			<section>
+				<h2>TODO: Update CDC diagram with App diagram</h2>
+			</section>
+
+			<section>
+				<h2>TODO: Pros</h2>
+			</section>
+
+			<section>
+				<h2>TODO: Cons</h2>
+			</section>
+
+			<section>
+				<h2>Takeaways</h2>
+				<ul>
+					<li class="fragment">CDC is a good way to decouple your project</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>OH SNAP A WORKSHOP</h2>
+			</section>
+
+
+
 
 				<section>
-					<h2>Workshop plan</h2>
-					<ol>
-						<li class="fragment">The problem that we'll try to solve using CDC</li>
-						<li class="fragment">Introduction to the tech involved</li>
-						<li class="fragment">Workshop itself</li>
-						<li class="fragment">Takeaways</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>1. The Problem</h2>
-					<h3>updating campaigns on the go</h3>
-				</section>
-
-				<section>
-					<h2>Bad solution: DB polling</h2>
-				</section>
-
-				<section>
-					<h2>Better (?) solution: CDC with Debezium~!</h2>
-				</section>
-
-				<section>
-					<h2>2. The tech</h2>
-				</section>
-
-				<section>
-					<h2>What is Debezium?</h2>
-					<h4>Debezium is a <span class="emp">Kafka Connect connector</span> <br>
-					which enables <span class="emp">CDC</span> on popular <span class="emp">databases</span></h4>
-				</section>
-
-				<section>
-					<img style="max-height: 500px;" src="img/wat.jpg" alt="">
-				</section>
-
-				<section>
-					<h2>What is all this stuff?</h2>
-				</section>
-
-				<section>
-					<h2>You already know what CDC is</h2>
-				</section>
-
-				<section>
-					<h2>What is Kafka?</h2>
-					<p>Fast, scalable, durable, and distributed messaging system that records all messages in replicated, partitioned, and totally-ordered transaction logs</p>
-				</section>
-
-				<section>
-					<h2>Kafka Connect</h2>
-					<p>Tool for scalably and reliably streaming data between Apache Kafka and other systems. It makes it simple to quickly define connectors that move large collections of data into and out of Kafka. </p>
-				</section>
-
-				<section>
-					<h2>Connector types</h2>
-					<img style="max-height: 500px;" src="img/connect1.png" alt="">
-				</section>
-
-				<section>
-					<h2>Debezium is a collection <br> of a <span class="emp">source connectors</span></h2>
-				</section>
-
-				<section>
-					<h2>3. The workshop</h2>
+					<h1>Workshop time!</h1>
+					<h3>Set up CDC with Debezium</h1>
 				</section>
 
 				<section>
@@ -127,6 +313,10 @@
 				<section>
 					<h4>...but you can try on your own! :D</h4>
 					<h3>github.com/ClearcodeHQ/it-depends-8</h3>
+				</section>
+				
+				<section>
+					<h3>TODO: THANK YOU SLIDE + URL slides</h3>
 				</section>
 
 				<section>
@@ -150,7 +340,10 @@
 					</ol>
 				</section>
 
-				<section><h3>DEMO: Check out the code and DB schema</h3></section>
+				<section>
+					<h3>DEMO: Check out the code and DB schema</h3>
+					<img style="max-height: 500px;" src="img/db-schema.png" alt="">
+				</section>
 
 				<section>
 					<h2>Try out the polling mechanism</h2>
@@ -161,7 +354,7 @@
 					</ol>
 				</section>
 
-				<section><h3>TASK: Use psql to change rows in the DB</h3></section>
+				<section><h3>TASK: Use psql to change rows in the DB <br> and check if the polling mechanism catches it</h3></section>
 
 				<section>
 					<h2>Try out the polling mechanism</h2>
