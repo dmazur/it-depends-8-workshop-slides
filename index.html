@@ -83,7 +83,7 @@
 				<h2>Why am I talking about it?</h2>
 				<ul>
 					<li>It's not that well known</li>
-					<li class="fragment">It's simple but very powerful</li>
+					<li>It's simple but very powerful</li>
 				</ul>
 			</section>
 
@@ -162,12 +162,16 @@
 
 			<section>
 				<h2>Adtech problem</h2>
-				<h4>Updating campaigns ASAP</h4>
+				<h4>Updating campaigns <span class="emp">ASAP</span></h4>
 			</section>
 
 			<section>
-				<h2>The application</h2>
-				<img style="max-height: 500px; border: none;" src="img/app-diagram.png" alt="">
+				<h2>The old solution</h2>
+				<img style="height: 150px; border: none;" src="img/app-diagram.png" alt="">
+			</section>
+
+			<section>
+				<img style="max-height: 500px;" src="img/db-schema.png" alt="">
 			</section>
 
 			<section>
@@ -175,24 +179,19 @@
 				<img class="fragment" style="max-height: 500px;" src="img/polling.png" alt="">
 			</section>
 
-			<section>
-				<h2>How do we check if campaigns changed?</h2>
-				<img style="max-height: 500px;" src="img/ex-db-update.png" alt="">
+			<section data-background="img/ex-db-update.png" data-background-size="contain">
+			</section>
+
+			<section data-background="img/ex-polling-update.png" data-background-size="contain">
 			</section>
 
 			<section>
-				<h2>How do we check if campaigns changed?</h2>
-				<img style="max-height: 500px;" src="img/ex-polling-update.png" alt="">
-			</section>
-
-			<section>
-				<h2>DB polling has it's issues</h2>
+				<h2>DB polling has its issues</h2>
 				<ul>
 					<li class="fragment">The interval is hard to nail</li>
 					<li class="fragment">Additional load on the DB</li>
 					<li class="fragment">Changes have to be handled manually</li>
 					<li class="fragment">Custom solutions are error prone</li>
-					<li class="fragment">We have better ways of doing that :d</li>
 				</ul>
 			</section>
 
@@ -200,7 +199,11 @@
 			</section>
 
 			<section>
-				<h2>Let's pick a CDC framework</h2>
+				<h2>Let's fix our problem <span class="emp">using CDC</span></h2>
+			</section>
+
+			<section>
+				<h2>0. Pick a <span class="emp">CDC framework</span></h2>
 			</section>
 			
 			<section>
@@ -222,10 +225,9 @@
 				<h2>Talend</h2>
 				<img style="max-height: 500px;" src="img/price4.png" alt="">
 			</section>
-			</section>
 			
-			<section>
-				<img style="max-height: 500px;" src="img/price5.png" alt="">
+
+			<section data-background="img/price5.png" data-background-size="contain">
 			</section>
 			
 			<section>
@@ -234,7 +236,7 @@
 			</section>
 
 			<section>
-				<img style="max-height: 500px;" src="img/jack.gif" alt="">
+				<img style="max-height: 500px;" src="img/free.jpg" alt="">
 			</section>
 
 			<section>
@@ -308,12 +310,7 @@
 			</section>
 
 			<section>
-				<h2>Let's fix our problem using CDC</h2>
-			</section>
-
-			<section>
 				<h2>1. Configure Kafka and Kafka Connect</h2>
-				<img class="fragment" style="max-height: 500px;" src="img/earlier.jpg" alt="">
 			</section>
 
 			<section>
@@ -332,7 +329,7 @@
 
 			<section>
 				<h2>2. Install Debezium Connector</h2>
-				<img class="fragment" style="max-height: 500px;" src="img/ex-debezium-site.png" alt="">
+				<img style="max-height: 500px;" src="img/ex-debezium-site.png" alt="">
 			</section>
 
 			<section>
@@ -341,23 +338,21 @@
 			</section>
 
 			<section>
-				<h3>Kafka Connect has a nice REST API</h3>
-				<img class="fragment" style="max-height: 500px;" src="img/ex-get-con.png" alt="">
+				<img style="max-height: 500px;" src="img/ex-get-con.png" alt="">
 			</section>
 
 			<section>
-				<h3>Kafka Connect has a nice REST API</h3>
-				<img class="fragment" style="max-height: 500px;" src="img/ex-get-con-detail.png" alt="">
+				<img style="max-height: 500px;" src="img/ex-get-con-detail.png" alt="">
 			</section>
 
 			<section>
 				<h2>3. Consume messages</h2>
-				<img class="fragment" style="max-height: 500px;" src="img/ex-kafka-consume-command.png" alt="">
+				<img style="max-height: 500px;" src="img/ex-kafka-consume-command.png" alt="">
 			</section>
 
 			<section>
 				<h3><span class="emp">Win #1:</span> We get whole existing DB history</h3>
-				<img class="fragment" style="max-height: 500px;" src="img/ex-kafka-consume.png" alt="">
+				<img style="max-height: 500px;" src="img/ex-kafka-consume.png" alt="">
 			</section>
 
 			<section>
@@ -700,26 +695,74 @@ null
 				<section>
 					<h4>...but you can try on your own! :D</h4>
 					<h3>github.com/ClearcodeHQ/it-depends-8</h3>
+					<h4 class="fragment">I'll drop the task solution there tomorrow ;)</h4>
+					<h5 class="fragment">(In a Pull Request)</h5>
 				</section>
 
 				<section>
-					<h2>TODO: Pros</h2>
+					<h2>Some advantages of CDC</h2>
+					<ul>
+						<li class="fragment">Complete history of the DB</li>
+						<li class="fragment">Great to sync data throughout the architecture</li>
+						<li class="fragment">Info about the previous state</li>
+						<li class="fragment">Info about deletes</li>
+						<li class="fragment">and schema changes</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Some advantages of Debezium</h2>
+					<ul>
+						<li class="fragment">No need to custom solutions</li>
+						<li class="fragment">...which means less bugs</li>
+						<li class="fragment">...and less regression</li>
+						<li class="fragment">Open source!</li>
+						<li class="fragment">Very nice and responsive dev team</li>
+					</ul>
 				</section>
 	
 				<section>
-					<h2>TODO: Cons</h2>
+					<h2>Problems to consider</h2>
+					<ul>
+						<li class="fragment">Eventual consistency is a thing</li>
+						<li class="fragment">Not build in the DB, sometimes that means it uses DB mechanisms not built for CDC</li>
+						<li class="fragment">...that could mean performance and stability issues</li>
+						<li class="fragment">It's possible to create a feedback loop</li>
+					</ul>
 				</section>
 
 				<section>
 					<h2>Takeaways</h2>
 					<ul>
 						<li class="fragment">CDC is a good way to decouple your project</li>
+						<li class="fragment">People should use it more</li>
+						<li class="fragment">Debezium delivers a nice open source way of implementing CDC in various databases</li>
+						<li class="fragment">Kafka and Connect offer a very bulletproof solution</li>
+						<li class="fragment">It's good to know and try out Kafka and Connect before implementing Debezium</li>
 					</ul>
-				</section>
-				
-				<section>
-					<h3>TODO: THANK YOU SLIDE + URL slides</h3>
-				</section>
+				</section>                                <section>
+					<h3>Feedback is <span class="emp">very</span> welcome!</h3>
+	</section>
+
+	<section>
+					<h2>Thank you!</h2>
+					<p>
+									<small>
+													More questions? <br>
+													<i style="vertical-align: middle" class="fa fa-twitter" aria-hidden="true"></i> <a target="_blank" href="http://twitter.com/dwdmzr"> @dwdmzr</a> |
+													<i style="vertical-align: middle" class="fa fa-linkedin-square" aria-hidden="true"></i> <a target="_blank" href="https://www.linkedin.com/in/dwdmzr/"> dwdmzr</a> |
+													<i style="vertical-align: middle" class="fa fa-facebook" aria-hidden="true"></i> <a target="_blank" href="https://web.facebook.com/dwd.mazur"> dwd.mazur</a>
+									</small>
+									<br>
+									<br>
+									<small>
+													The slides are at <a target="_blank" href="http://dawidmazur.eu/it-depends-8"> dawidmazur.eu/it-depends-8</a>
+									</small>
+									<br>
+									<br>
+					</p>
+	</section>
+
 
 				<section>
 					<h2>What needs to be done?</h2>
@@ -924,19 +967,6 @@ null
 						<li class="fragment">extractKey</li>
 						<li class="fragment">Reroute (Debezium specific)</li>
 						<li class="fragment">Key/value format transformations</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Summary</h2>
-					<ul>
-						<li class="fragment">CDC is a good way to decouple your project</li>
-						<li class="fragment">Debezium delivers a nice open source way of implementing CDC in various databases</li>
-						<li class="fragment">Kafka and Connect offer a very bulletproof solution</li>
-						<li class="fragment">It's good to know and try out Kafka and Connect before implementing Debezium</li>
-						<!-- <li class="fragment">It's better to take Debezium formats into account early</li>
-						<li class="fragment">Sometimes it's hard to solve problems</li>
-						<li class="fragment">...but the community and devs are very responsive (gitter)</li> -->
 					</ul>
 				</section>
 
