@@ -92,23 +92,23 @@
 			</section>
 
 			<section>
-				<h2>So.. what exactly is that CDC?</h2>
-				<img style="max-height: 500px;" src="img/cdc-diagram.png" alt="">
+				<h3>So.. what exactly is that CDC?</h3>
+				<img style="max-height: 500px; border: none;" src="img/cdc-diagram.png" alt="">
 			</section>
 
 			<section>
-				<h3>One database as a source of truth TODO: arrows</h3>
-				<img style="max-height: 500px;" src="img/cdc-diagram.png" alt="">
+				<h3>One database as a source of truth</h3>
+				<img style="max-height: 500px; border: none;" src="img/cdc-diagram-2.png" alt="">
 			</section>
 
 			<section>
-				<h3>All operations on the DB are messages TODO: arrows</h3>
-				<img style="max-height: 500px;" src="img/cdc-diagram.png" alt="">
+				<h3>All operations on the DB are messages</h3>
+				<img style="max-height: 500px; border: none;" src="img/cdc-diagram-3.png" alt="">
 			</section>
 
 			<section>
-				<h3>Several consumer in sync with data TODO: arrows</h3>
-				<img style="max-height: 500px;" src="img/cdc-diagram.png" alt="">
+				<h3>Several consumer in sync with data</h3>
+				<img style="max-height: 500px; border: none;" src="img/cdc-diagram-4.png" alt="">
 			</section>
 
 			<section>
@@ -171,12 +171,22 @@
 
 			<section>
 				<h2>The application</h2>
-				<img style="max-height: 500px;" src="img/app-diagram.png" alt="">
+				<img style="max-height: 500px; border: none;" src="img/app-diagram.png" alt="">
 			</section>
 
 			<section>
-				<h2>How do we check if caimpagns changed?</h2>
+				<h2>How do we check if campaigns changed?</h2>
 				<img class="fragment" style="max-height: 500px;" src="img/polling.png" alt="">
+			</section>
+
+			<section>
+				<h2>How do we check if campaigns changed?</h2>
+				<img style="max-height: 500px;" src="img/ex-db-update.png" alt="">
+			</section>
+
+			<section>
+				<h2>How do we check if campaigns changed?</h2>
+				<img style="max-height: 500px;" src="img/ex-polling-update.png" alt="">
 			</section>
 
 			<section>
@@ -203,18 +213,23 @@
 			</section>
 			
 			<section>
-				<h2>Oracle GoldenGate</h2>
-				<img style="max-height: 500px;" src="img/price1.png" alt="">
+				<h2>Hevo</h2>
+				<img style="max-height: 500px;" src="img/price2.png" alt="">
 			</section>
 			
 			<section>
-				<h2>Oracle GoldenGate</h2>
-				<img style="max-height: 500px;" src="img/price1.png" alt="">
+				<h2>Stitch</h2>
+				<img style="max-height: 500px;" src="img/price3.png" alt="">
 			</section>
 			
 			<section>
-				<h2>Oracle GoldenGate</h2>
-				<img style="max-height: 500px;" src="img/price1.png" alt="">
+				<h2>Talend</h2>
+				<img style="max-height: 500px;" src="img/price4.png" alt="">
+			</section>
+			</section>
+			
+			<section>
+				<img style="max-height: 500px;" src="img/price5.png" alt="">
 			</section>
 			
 			<section>
@@ -268,7 +283,335 @@
 			</section>
 
 			<section>
-				<h2>TODO: Update CDC diagram with App diagram</h2>
+				<h2>Let's fix our problem with CDC</h2>
+			</section>
+
+			<section>
+				<h2>1. Configure Kafka and Kafka Connect</h2>
+				<img class="fragment" style="max-height: 500px;" src="img/earlier.jpg" alt="">
+			</section>
+
+			<section data-background="img/ex-docker-compose.png" data-background-size="contain">
+			</section>
+
+			<section>
+				<h2>2. Install Debezium Connector</h2>
+				<img class="fragment" style="max-height: 500px;" src="img/ex-debezium-site.png" alt="">
+			</section>
+
+			<section>
+				<h3>Kafka Connect has a nice REST API</h3>
+				<img class="fragment" style="max-height: 500px;" src="img/ex-post-con.png" alt="">
+			</section>
+
+			<section>
+				<h3>Kafka Connect has a nice REST API</h3>
+				<img class="fragment" style="max-height: 500px;" src="img/ex-get-con.png" alt="">
+			</section>
+
+			<section>
+				<h3>Kafka Connect has a nice REST API</h3>
+				<img class="fragment" style="max-height: 500px;" src="img/ex-get-con-detail.png" alt="">
+			</section>
+
+			<section>
+				<h2>3. Consume messages</h2>
+				<img class="fragment" style="max-height: 500px;" src="img/ex-kafka-consume-command.png" alt="">
+			</section>
+
+			<section>
+				<h3><span class="emp">Win #1:</span> We get whole existing DB history</h3>
+				<img class="fragment" style="max-height: 500px;" src="img/ex-kafka-consume.png" alt="">
+			</section>
+
+			<section>
+				<h2>event <span class="emp">key</span> structure</h2>
+				<pre><code class="language-js">
+{
+	"schema": {
+		"type": "struct",
+		"fields": [
+			{
+				"type": "int32",
+				"optional": false,
+				"default": 0,
+				"field": "id"
+			}
+		],
+		"optional": false,
+		"name": "dbserver1.campaigns.line_items.Key"
+	},
+	"payload": {
+		"id": 10001
+	}
+}
+				</code></pre>
+			</section>
+
+			<section>
+				<h2><span class="emp">create</span> event structure</h2>
+				<pre><code class="language-js">
+{
+  "schema": {
+    "type": "struct",
+    "fields": [
+      {
+        "type": "struct",
+        "fields": [
+          {
+            "type": "int32",
+            "optional": false,
+            "default": 0,
+            "field": "id"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "first_name"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "last_name"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "email"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "currency"
+          }
+        ],
+        "optional": true,
+        "name": "dbserver1.campaigns.customers.Value",
+        "field": "before"
+      },
+      {
+        "type": "struct",
+        "fields": [
+          {
+            "type": "int32",
+            "optional": false,
+            "default": 0,
+            "field": "id"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "first_name"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "last_name"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "email"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "currency"
+          }
+        ],
+        "optional": true,
+        "name": "dbserver1.campaigns.customers.Value",
+        "field": "after"
+      },
+      {
+        "type": "struct",
+        "fields": [
+          {
+            "type": "string",
+            "optional": false,
+            "field": "version"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "connector"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "name"
+          },
+          {
+            "type": "int64",
+            "optional": false,
+            "field": "ts_ms"
+          },
+          {
+            "type": "string",
+            "optional": true,
+            "name": "io.debezium.data.Enum",
+            "version": 1,
+            "parameters": {
+              "allowed": "true,last,false"
+            },
+            "default": "false",
+            "field": "snapshot"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "db"
+          },
+          {
+            "type": "string",
+            "optional": true,
+            "field": "sequence"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "schema"
+          },
+          {
+            "type": "string",
+            "optional": false,
+            "field": "table"
+          },
+          {
+            "type": "int64",
+            "optional": true,
+            "field": "txId"
+          },
+          {
+            "type": "int64",
+            "optional": true,
+            "field": "lsn"
+          },
+          {
+            "type": "int64",
+            "optional": true,
+            "field": "xmin"
+          }
+        ],
+        "optional": false,
+        "name": "io.debezium.connector.postgresql.Source",
+        "field": "source"
+      },
+      {
+        "type": "string",
+        "optional": false,
+        "field": "op"
+      },
+      {
+        "type": "int64",
+        "optional": true,
+        "field": "ts_ms"
+      },
+      {
+        "type": "struct",
+        "fields": [
+          {
+            "type": "string",
+            "optional": false,
+            "field": "id"
+          },
+          {
+            "type": "int64",
+            "optional": false,
+            "field": "total_order"
+          },
+          {
+            "type": "int64",
+            "optional": false,
+            "field": "data_collection_order"
+          }
+        ],
+        "optional": true,
+        "field": "transaction"
+      }
+    ],
+    "optional": false,
+    "name": "dbserver1.campaigns.customers.Envelope"
+  },
+  "payload": {
+    "before": null,
+    "after": {
+      "id": 105,
+      "first_name": "Stan",
+      "last_name": "Tweddle",
+      "email": "stweddle4@businessweek.com",
+      "currency": "MXN"
+    },
+    "source": {
+      "version": "1.6.2.Final",
+      "connector": "postgresql",
+      "name": "dbserver1",
+      "ts_ms": 1632912679954,
+      "snapshot": "true",
+      "db": "postgres",
+      "sequence": "[null,\"24715328\"]",
+      "schema": "campaigns",
+      "table": "customers",
+      "txId": 586,
+      "lsn": 24715328,
+      "xmin": null
+    },
+    "op": "r",
+    "ts_ms": 1632912679954,
+    "transaction": null
+  }
+}			
+				</code></pre>
+			</section>
+
+			<section>
+				<h2><span class="emp">update</span> event structure</h2>
+				<pre><code class="language-js">
+"payload": {
+	"before": {
+		"id": 10001,
+		"campaign": 1001,
+		"creative_url": "https://somecdn.io/1001/13549513.png",
+		"target_audience_id": 9513,
+		"max_bid": 450,
+		"compensation_method": "CPC",
+		"last_change": 1632912198871251
+	},
+	"after": {
+		"id": 10001,
+		"campaign": 1001,
+		"creative_url": "https://somecdn.io/1001/13549513.png",
+		"target_audience_id": 9513,
+		"max_bid": 450,
+		"compensation_method": "CPC",
+		"last_change": 1632917309964648
+	},
+	"source": {
+		"version": "1.6.2.Final",
+		"connector": "postgresql",
+		"name": "dbserver1",
+		"ts_ms": 1632917309966,
+		"snapshot": "false",
+		"db": "postgres",
+		"sequence": "[null,\"24715328\"]",
+		"schema": "campaigns",
+		"table": "line_items",
+		"txId": 587,
+		"lsn": 24716040,
+		"xmin": null
+	},
+	"op": "u",
+	"ts_ms": 1632917320242,
+	"transaction": null
+}
+				</code></pre>
+			</section>
+
+			<section>
+				<h2><span class="emp">delete</span> event structure</h2>
+				<pre><code class="language-js">
+null
+				</code></pre>
 			</section>
 
 			<section>
@@ -286,16 +629,16 @@
 				</ul>
 			</section>
 
-			<section>
-				<h2>OH SNAP A WORKSHOP</h2>
-			</section>
-
 
 
 
 				<section>
 					<h1>Workshop time!</h1>
 					<h3>Set up CDC with Debezium</h1>
+				</section>
+
+				<section>
+					<h5>but wait...</h5>
 				</section>
 
 				<section>
@@ -306,8 +649,7 @@
 					<img style="max-height: 500px;" src="img/tickets2.png" alt="">
 				</section>
 
-				<section>
-					<img style="max-height: 500px;" src="img/tickets3.jpg" alt="">
+				<section data-background="img/tickets3.jpg">
 				</section>
 
 				<section>
