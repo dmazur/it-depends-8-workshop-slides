@@ -112,22 +112,18 @@
 			</section>
 
 			<section>
-				<h3>Most importantly: We do not need polling / last_changed fields / custom logic</h3>
-			</section>
-
-			<section>
 				<h3>Where can we use CDC?</h3>
 				<ul>
 					<li class="fragment">Caching</li>
 					<li class="fragment">Indexing</li>
 					<li class="fragment">ETL, streaming to other systems</li>
 					<li class="fragment">Data aggregation</li>
-					<li class="fragment">and...</li>
+					<li class="fragment">and other complex systems, like in...</li>
 				</ul>
 			</section>
 
 			<section>
-				<h2>We do <span class="emp">AdTech</span></h2>
+				<h2><span class="emp">AdTech</span></h2>
 			</section>
 
 			<section data-background="img/clearcode.png" data-background-size="40%">
@@ -269,8 +265,37 @@
 			</section>
 
 			<section>
+				<h2>Kafka Guarantees</h2>
+				<ul>
+					<li class="fragment">Maintains order of produced messages in a partition</li>
+					<li class="fragment">Consumer gets message always in said order</li>
+					<li class="fragment">Topic with a replication factor of N will tolerate up to N-1 server failures</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Also...</h2>
+				<ul>
+					<li class="fragment">Consumers and consumer groups will pick up when they left (offset can be reset ofc)</li>
+					<li class="fragment">Server failure in a cluster is transparent to consumers and producers</li>
+					<li class="fragment">Kafka is really fast</li>
+				</ul>
+			</section>
+
+			<section>
 				<h2>What is the <span class="emp">Kafka Connect</span></h2>
 				<p>Tool for scalably and reliably streaming data between Apache Kafka and other systems. It makes it simple to quickly define connectors that move large collections of data into and out of Kafka. </p>
+			</section>
+
+			<section>
+				<h2>Kafka Connect advantages</h2>
+				<ul>
+					<li class="fragment">Scalability and distribution OOTB</li>
+					<li class="fragment">Many connectors available</li>
+					<li class="fragment">A common framework!</li>
+					<li class="fragment">Take a lot of heavy lifting from developer</li>
+					<li class="fragment">Handy REST interface</li>
+				</ul>
 			</section>
 
 			<section>
@@ -283,12 +308,23 @@
 			</section>
 
 			<section>
-				<h2>Let's fix our problem with CDC</h2>
+				<h2>Let's fix our problem using CDC</h2>
 			</section>
 
 			<section>
 				<h2>1. Configure Kafka and Kafka Connect</h2>
 				<img class="fragment" style="max-height: 500px;" src="img/earlier.jpg" alt="">
+			</section>
+
+			<section>
+				<h2>Kafka configuration</h2>
+				<ul>
+					<li class="fragment">If automatic topic creation is off, you have to create them yourself</li>
+					<li class="fragment">Schema history topic has to have only one partition</li>
+				</ul>
+			</section>
+
+			<section data-background="img/earlier.jpg" data-background-size="contain">
 			</section>
 
 			<section data-background="img/ex-docker-compose.png" data-background-size="contain">
@@ -741,41 +777,6 @@ null
 					</ol>
 				</section>
 
-				<section>
-					<h2>Why Kafka Connect?</h2>
-					<ul>
-						<li class="fragment">Scalability and distribution OOTB</li>
-						<li class="fragment">Many connectors available</li>
-						<li class="fragment">A common framework!</li>
-						<li class="fragment">Take a lot of heavy lifting from developer</li>
-						<li class="fragment">Handy REST interface</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Available connectors</h2>
-					<ul>
-						<li class="fragment">MySQL</li>
-						<li class="fragment">MongoDB</li>
-						<li class="fragment">PostgreSQL</li>
-						<li class="fragment">Oracle</li>
-						<li class="fragment">SQL Server</li>
-						<li class="fragment">Cassandra</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Available connectors</h2>
-					<ul>
-						<li class="">MySQL</li>
-						<li class="">MongoDB</li>
-						<li class="emp">PostgreSQL</li>
-						<li class="">Oracle</li>
-						<li class="">SQL Server</li>
-						<li class="">Cassandra</li>
-					</ul>
-				</section>
-
 				<section><h3>DEMO: Check out the Connector API</h3></section>
 
 				<section>
@@ -813,32 +814,6 @@ null
 						<li>Use available configuration to create your connector</li>
 						<li class="fragment">Is the connector created?</li>
 					</ol>
-				</section>
-
-				<section>
-					<h2>Kafka configuration</h2>
-					<ul>
-						<li class="fragment">If automatic topic creation is off, you have to create them yourself</li>
-						<li class="fragment">Schema history topic has to have only one partition</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Kafka Guarantees</h2>
-					<ul>
-						<li class="fragment">Maintains order of produced messages in a partition</li>
-						<li class="fragment">Consumer gets message always in said order</li>
-						<li class="fragment">Topic with a replication factor of N will tolerate up to N-1 server failures</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Also...</h2>
-					<ul>
-						<li class="fragment">Consumers and consumer groups will pick up when they left (offset can be reset ofc)</li>
-						<li class="fragment">Server failure in a cluster is transparent to consumers and producers</li>
-						<li class="fragment">Kafka is really fast</li>
-					</ul>
 				</section>
 
 				<section>
